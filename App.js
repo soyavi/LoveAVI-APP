@@ -45,6 +45,7 @@ import AppearanceScreen from './src/screens/settings/AppearanceScreen';
 import LegalScreen from './src/screens/settings/LegalScreen';
 import LanguagesScreen from './src/screens/settings/LanguagesScreen';
 import ChatScreen from './src/screens/ChatScreen';
+import AgendaScreen from './src/screens/agenda/AgendaScreen';
 import css from './src/Styles';
 import Feather from 'react-native-vector-icons/Feather';
 import SystemNavigationBar from 'react-native-system-navigation-bar';
@@ -186,6 +187,30 @@ function CustomDrawerContent({}) {
               </Text>
             </TouchableOpacity>
           ))}
+          
+          <View style={[styles.mt4, styles.borderTopLight, styles.pt4]}>
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate('Agenda');
+                navigation.dispatch(DrawerActions.toggleDrawer());
+              }}
+              style={[
+                styles.btn,
+                styles.px0,
+                styles.gap2,
+                styles.px2,
+                styles.btnLight,
+              ]}>
+              <Feather
+                name={'calendar'}
+                size={24}
+                color={styles.textNormalColor}
+              />
+              <Text style={[styles.flexGrow1, styles.textNormal]}>
+                {t('Agenda')}
+              </Text>
+            </TouchableOpacity>
+          </View>
         </ScrollView>
       </View>
     </View>
@@ -332,6 +357,34 @@ function MainDrawer({navigation}) {
                   </>
                 )}
               </TouchableOpacity>
+            </View>
+          ),
+        }}
+      />
+      <Drawer.Screen
+        name="Agenda"
+        component={AgendaScreen}
+        options={{
+          headerTitle: t('Agenda'),
+          headerTitleStyle: {
+            fontWeight: 'bold',
+            fontSize: 18,
+            color: styles.textNormalColor,
+          },
+          headerLeft: () => (
+            <View style={[styles.ms4]}>
+              {dimensions.width < 768 && (
+                <TouchableOpacity
+                  onPress={() => {
+                    navigation.dispatch(DrawerActions.toggleDrawer());
+                  }}>
+                  <Feather
+                    name={'menu'}
+                    size={24}
+                    color={styles.textPrimaryColor}
+                  />
+                </TouchableOpacity>
+              )}
             </View>
           ),
         }}
